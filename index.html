@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contagem Regressiva</title>
+<style>
+  body {
+    background-color: #000033; /* Azul marinho escuro */
+    color: #FFD700; /* Dourado */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  #countdown {
+    text-align: center;
+    font-size: 5em; /* Tamanho menor para a contagem */
+  }
+  #countdown-end {
+    font-size: 7em; /* Tamanho ajustado para a frase final */
+  }
+</style>
+<script>
+function startCountdown() {
+  const eventDate = new Date('December 31, 2024 23:59:59').getTime();
+  const countdown = setInterval(() => {
+    const now = new Date().getTime();
+    const distance = eventDate - now;
+
+    if (distance >= 0) {
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      let countdownText = '';
+      if (days > 0) {
+        countdownText += `${days}d `;
+      }
+      if (days > 0 || hours > 0) {
+        countdownText += `${hours}h `;
+      }
+      if (days > 0 || hours > 0 || minutes > 0) {
+        countdownText += `${minutes}m `;
+      }
+      countdownText += `${seconds}s`;
+
+      document.getElementById('countdown').innerHTML = countdownText;
+    } else {
+      clearInterval(countdown);
+      document.getElementById('countdown').innerHTML = 'FELIZ ANO NOVO!';
+      document.getElementById('countdown').id = 'countdown-end'; // Alterar o ID para ajustar o tamanho final
+    }
+  }, 1000);
+}
+</script>
+</head>
+<body onload="startCountdown()">
+<p id="countdown">Carregando...</p> <!-- Mensagem inicial -->
+</body>
+</html>
